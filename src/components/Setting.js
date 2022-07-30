@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Multiselect from "multiselect-react-dropdown";
 
-const Setting = () => {
+const Setting = ({ playGame }) => {
     const [limit, setLimit] = useState({
-        max: 30,
-        min: 0,
+        max: 50,
+        min: 1,
         value: 10,
     });
 
@@ -44,31 +44,48 @@ const Setting = () => {
         return categoriesUrl;
     }
 
+    function makeUrl() {
+        let gameUrl = `https://the-trivia-api.com/api/questions?${
+            selectedCategories.length !== 0
+                ? "categories=" + categoriesToUrl()
+                : ""
+        }&limit=${limit.value}${
+            selectedDifficulty ? "&difficulty=" + selectedDifficulty : ""
+        }`;
+        // console.log(gameUrl)
+
+        playGame(gameUrl);
+    }
+
     return (
         <div className="App">
             <fieldset>
                 <legend>Questions Setting</legend>
                 <form>
-                    <input
-                        type="range"
-                        name="limit"
-                        id="limit"
-                        max={limit.max}
-                        min={limit.min}
-                        value={limit.value}
-                        onChange={(e) =>
-                            setLimit((prevLimit) => {
-                                return {
-                                    ...prevLimit,
-                                    value: e.target.value,
-                                };
-                            })
-                        }
-                    />
-                    <label htmlFor="limit">Limit: {limit.value}</label>
+                    <div className="range">
+                        <input
+                            type="range"
+                            name="limit"
+                            id="limit"
+                            max={limit.max}
+                            min={limit.min}
+                            value={limit.value}
+                            onChange={(e) =>
+                                setLimit((prevLimit) => {
+                                    return {
+                                        ...prevLimit,
+                                        value: e.target.value,
+                                    };
+                                })
+                            }
+                        />
+                        <label htmlFor="limit">
+                            Limit: {limit.value}
+                        </label>
+                    </div>
                     <br />
-{/*                     
-                    <Multiselect
+
+                    {/* <Multiselect
                         isObject={false}
                         placeholder="Select categories"
                         options={Object.keys(categories)}
@@ -91,27 +108,9 @@ const Setting = () => {
                     /> */}
                 </form>
             </fieldset>
-            <a
-                href={`https://the-trivia-api.com/api/questions?${
-                    selectedCategories.length !== 0
-                        ? "categories=" + categoriesToUrl()
-                        : ""
-                }&limit=${limit.value}${
-                    selectedDifficulty
-                        ? "&difficulty=" + selectedDifficulty
-                        : ""
-                }`}
-            >
-                Link
-            </a>
-            {/* <a href={
-            "https://the-trivia-api.com/api/questions?"+
-            {selectedCategories.length !== 0 &&
-                "categories=" + categoriesToUrl()}
-            &limit={limit.value}
-            {selectedDifficulty && "&difficulty=" + selectedDifficulty[0]} */}
+            <button onClick={makeUrl}>Submit and Play</button>
         </div>
     );
 };
 
-export default Setting
+export default Setting;

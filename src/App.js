@@ -3,7 +3,7 @@ import axios from "axios";
 import StartGame from "./components/StartGame.js";
 import Game from "./components/Game.js";
 import Setting from "./components/Setting.js";
-
+import { useEffect } from "react";
 
 function App() {
     const [GameView, setGameView] = useState(false);
@@ -11,35 +11,34 @@ function App() {
     const [data, setData] = useState([]);
     const [score, setScore] = useState(0);
     const [settingView, setSettingView] = useState(false);
+    const [questionsUrl, setQuestionsUrl] = useState(
+        "https://the-trivia-api.com/api/questions"
+    );
 
     function startGame() {
         setSettingView(true);
     }
 
-    function playGame() {
-        refreshData()
+    function playGame(gameUrl) {
+        // console.log(gameUrl);
+        setQuestionsUrl(gameUrl);
         setGameView(true);
         setSettingView(false);
     }
 
-    function refreshData() {
-        getRandomQuestions();
-    }
-
-    function getRandomQuestions() {
+    useEffect(() => {
         axios
-            .get("https://the-trivia-api.com/api/questions?limit=10")
+            .get(`${questionsUrl}`)
             .then((res) => {
-                // console.log(res)
                 setData(res.data);
             })
             .catch((error) => {
                 console.error(error);
             });
-    }
+    }, [questionsUrl]);
 
     function handleChange(index, id, value) {
-        console.log(index, id, value);
+        // console.log(index, id, value);
         // data.map(x=>console.log(x.answer))
         let newArr = [...data];
         newArr[index].answer = value;
@@ -48,16 +47,16 @@ function App() {
 
     function checkAnswers() {
         setCheck((prevCheck) => !prevCheck);
-        data.forEach(e => {
-            if(e.answer === e.correctAnswer){
+        data.forEach((e) => {
+            if (e.answer === e.correctAnswer) {
                 setScore((prevScore) => prevScore + 1);
             }
         });
     }
 
     function playAgain() {
-        refreshData();
-        // setGameView(false)
+        setGameView(false);
+        setSettingView(true);
         setCheck(false);
         setScore(0);
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -68,12 +67,11 @@ function App() {
             {/* Start GameView view */}
             {!GameView && !settingView && <StartGame startGame={startGame} />}
 
-            
             {/* Questions Setting view */}
             {settingView && !GameView && (
                 <div>
-                    <Setting />
-                    <button onClick={playGame}></button>
+                    <Setting playGame={playGame} />
+                    {/* <button onClick={playGame}></button> */}
                 </div>
             )}
 
