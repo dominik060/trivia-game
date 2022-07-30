@@ -1,13 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Karla&display=swap");
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, "Karla", BlinkMacSystemFont, "Segoe UI",
+        "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+        "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #f5f7fb;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+}
+
+.start,
+.game {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+
+.start h1 {
+    color: #293264;
+    font-size: 36px;
+    margin: 1em;
+}
+button {
+    width: 193px;
+    height: 52px;
+    background: #4d5b9e;
+    border-radius: 15px;
+    border: none;
+    color: #f5f7fb;
+    font-size: 18px;
+    margin: 1em;
+}
+
+
+.bg img {
+    position: fixed;
+    z-index: -999;
+    
+}
+.bg img:first-child {
+    bottom: 0;
+    left: 0;
+    height: 20%;
+}
+.bg img:last-child {
+    top: 0;
+    right: 0;
+    height: 40%;
+}
+
+.game {
+    padding: 5vh 5vw;
+    width: 88vw;
+    height: auto;
+    align-items: start;
+}
+
+.game .btn-div button {
+    margin: auto;
+}
+button {
+    cursor: pointer;
+}
+
+/* .game{
+    min-width: 1000px;
+} */
+
+.game div form {
+    display: flex;
+    width: 88vw;
+    
+    white-space: nowrap;
+    display: flex;
+    flex-wrap: wrap;
+    
+    
+}
+.game div form div {
+    margin: 2rem;
+    word-wrap: break-word;
+    /* display: grid; */
+    box-sizing: border-box;
+}
+.game div form div label {
+    font-size: 19px;
+    border: 0.1em solid #4d5b9e;
+    border-radius: 1rem;
+    padding: 0.6rem;
+    font-weight: 500;
+}
+.game div form div input {
+    display: none;
+}
+
+.game div form div input[type="radio"]:checked + label {
+    background-color: #d6dbf5;
+}
+
+hr {
+    margin: 1rem;
+    color: #dbdef0;
+}
+.score{
+    margin: 1rem;
+}
+
+.check-score{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 88vw;
+    margin: 0;
+    padding: 0;
+}
+
+.check-score button{
+    margin: 0;
 }
