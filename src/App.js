@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import StartGame from "./components/StartGame.js";
 import Game from "./components/Game.js";
 import Setting from "./components/Setting.js";
-import { useEffect } from "react";
 
 function App() {
     const [GameView, setGameView] = useState(false);

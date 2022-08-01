@@ -62,53 +62,60 @@ const Setting = ({ playGame }) => {
             <fieldset>
                 <legend>Questions Setting</legend>
                 <form>
-                    <div className="range">
-                        <input
-                            type="range"
-                            name="limit"
-                            id="limit"
-                            max={limit.max}
-                            min={limit.min}
-                            value={limit.value}
-                            onChange={(e) =>
-                                setLimit((prevLimit) => {
-                                    return {
-                                        ...prevLimit,
-                                        value: e.target.value,
-                                    };
-                                })
-                            }
-                        />
-                        <label htmlFor="limit">
-                            Limit: {limit.value}
-                        </label>
+                    <div className="input">
+                        <div className="range">
+                            <input
+                                type="range"
+                                name="limit"
+                                id="limit"
+                                max={limit.max}
+                                min={limit.min}
+                                value={limit.value}
+                                onChange={(e) =>
+                                    setLimit((prevLimit) => {
+                                        return {
+                                            ...prevLimit,
+                                            value: e.target.value,
+                                        };
+                                    })
+                                }
+                            />
+                            <label htmlFor="limit">Limit: {limit.value}</label>
+                        </div>
+                        <label>Select maximum number of questions (1 - 50)</label>
                     </div>
-                    <br />
-
-                    {/* <Multiselect
-                        isObject={false}
-                        placeholder="Select categories"
-                        options={Object.keys(categories)}
-                        showArrow={true}
-                        displayValue="Categories"
-                        selectedValues={selectedCategories}
-                        onSelect={changeSelectedCategories}
-                        onRemove={changeSelectedCategories}
-                    />
-                    <Multiselect
-                        isObject={false}
-                        singleSelect={true}
-                        placeholder="Select difficulty"
-                        options={["easy", "medium", "hard"]}
-                        showArrow={true}
-                        displayValue="Difficulty"
-                        selectedValues={selectedDifficulty}
-                        onSelect={changeSelectedDifficulty}
-                        onRemove={changeSelectedDifficulty}
-                    /> */}
+                    <div className="input">
+                        <Multiselect
+                            isObject={false}
+                            placeholder="Select categories"
+                            options={Object.keys(categories)}
+                            showArrow={true}
+                            displayValue="Categories"
+                            selectedValues={selectedCategories}
+                            onSelect={changeSelectedCategories}
+                            onRemove={changeSelectedCategories}
+                            className="Multiselect"
+                        />
+                        <label>Primary category for questions (10 categories)</label>
+                    </div>
+                    <div className="input">
+                        <Multiselect
+                            isObject={false}
+                            singleSelect={true}
+                            placeholder="Select difficulty"
+                            options={["easy", "medium", "hard"]}
+                            showArrow={true}
+                            displayValue="Difficulty"
+                            selectedValues={selectedDifficulty}
+                            onSelect={changeSelectedDifficulty}
+                            onRemove={changeSelectedDifficulty}
+                            className="Multiselect"
+                        />
+                        <label>Three difficulties (easy, medium and hard)</label>
+                    </div>
                 </form>
             </fieldset>
-            <button onClick={makeUrl}>Submit and Play</button>
+            <button className="submit-play" onClick={makeUrl}>Submit and Play</button>
         </div>
     );
 };
